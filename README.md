@@ -5,7 +5,7 @@ Community requested plugin to allow players who were team killed to get revenge 
 Releases are located [here](https://github.com/ZachPerkitny/csgo-team-kill-manager/releases).
 
 ## Installation
-Download `teamkillmanager.smx` and place it in the plugins folder on your gameserver.
+Download `teamkillmanager.smx` and place it in the plugins folder on your game server.
 
 ## Plugin Details
 ### Implemented Punishments
@@ -29,7 +29,7 @@ Whether slap is enabled in the punishments menu.
 Minimum tks before a user can be punished with a slap.  
 
 `tkm_slap_damage`  
-(**Integer**) *Default: 1, Min: 1*  
+(**Integer**) *Default: 15, Min: 0*  
 **Description:**  
 Health to Subtract when a user is punished by a slap.  
 
@@ -46,7 +46,7 @@ Minimum tks before a user can be punished with a beacon.
 `tkm_beacon_time`  
 (**Integer**) *Default: 5, Min: 0*  
 **Description:**  
-Time (in seconds) the beaon is active.  
+Time (in seconds) the beacon is active.  
 
 `tkm_beacon_radius`  
 (**Float**) *Default 375.0, Min: 50.0, Max: 1500.0*  
@@ -79,7 +79,7 @@ Whether burn is enabled in the punishments menu.
 Minimum tks before a user can be punished with burn.  
 
 `tkm_burn_time`  
-(**Integer**) *Default: 5, Min: 0*  
+(**Float**) *Default: 5.0, Min: 0.0*  
 **Description:**  
 Time (in seconds) the user is burned for.
 
