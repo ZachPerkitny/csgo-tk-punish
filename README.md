@@ -5,7 +5,7 @@ Community requested plugin to allow players who were team killed to get revenge 
 Releases are located [here](https://github.com/ZachPerkitny/csgo-team-kill-manager/releases).
 
 ## Installation
-Download the archive, extract it, and place `teamkillmanager.smx` in the plugins folder on your gameserver.
+Download `teamkillmanager.smx` and place it in the plugins folder on your gameserver.
 
 ## Plugin Details
 ### Implemented Punishments
