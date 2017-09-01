@@ -1,14 +1,14 @@
-### CSGO-Team-Kill-Manager
+## CSGO-Team-Kill-Manager
 Community requested plugin to allow players who were team killed to get revenge on their attackers by being allowed to select from a list of punishments.
 
-### Download
+## Download
 Releases are located [here](https://github.com/ZachPerkitny/csgo-team-kill-manager/releases).
 
-### Installation
+## Installation
 Download the archive, extract it, and place `teamkillmanager.smx` in the plugins folder on your gameserver.
 
-### Plugin Details
-#### Implemented Punishments
+## Plugin Details
+### Implemented Punishments
 * Slap
 * Beacon (to disclose their location to the enemy)
 * Freeze
@@ -17,7 +17,7 @@ Download the archive, extract it, and place `teamkillmanager.smx` in the plugins
 
 If you'd like me to add more, please make an issue and tag it as an enhancement.
 
-#### Convars
+### Convars
 `tkm_slap_punishment_enabled`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
@@ -93,5 +93,5 @@ Whether slay is enabled in the punishments menu.
 **Description:**  
 Minimum tks before a user can be punished with slay.
 
-#### Contributing and Suggestions
+## Contributing and Suggestions
 If there's anything you want me to add, or if there's a bug, please post a new issue and label it properly. If you'd like to contribute, go for it.
