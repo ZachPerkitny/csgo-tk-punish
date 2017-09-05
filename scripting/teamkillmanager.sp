@@ -144,7 +144,7 @@ public void OnMapStart()
   g_BlipSound = PrecacheSound(SOUND_BLIP);
   g_FreezeSound = PrecacheSound(SOUND_FREEZE);
   g_BeamSprite = PrecacheModel(SPRITE_BEAM);
-  g_HaloSprite = PrecacheModel(SPRITE_BEAM);
+  g_HaloSprite = PrecacheModel(SPRITE_HALO);
 }
 
 public void Event_OnPlayerDeath(Event event, const char[] name, bool dontBroadcast)
