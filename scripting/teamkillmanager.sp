@@ -4,7 +4,7 @@
 #define PLUGIN_NAME "CSGO Team Kill Manager"
 #define PLUGIN_AUTHOR "Zach Perkitny"
 #define PLUGIN_DESCRIPTION "Plugin that allows players to punish teamkillers."
-#define PLUGIN_VERSION "0.0.1"
+#define PLUGIN_VERSION "0.0.3"
 
 #define DEFAULT_TIMER_FLAGS TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE
 
@@ -158,10 +158,9 @@ public void Event_OnPlayerDeath(Event event, const char[] name, bool dontBroadca
     /* if friendly fire */
     if(victim_team == attacker_team)
     {
-      /* Update Attacker's Team Kills and set the victim's attacker */
+      /* Update Victim's Attacker Info */
       GetClientName(attacker, g_VictimsAttackerName[victim], MAX_NAME_LENGTH);
       g_VictimsAttackerClient[victim] = attacker;
-      g_TeamKills[attacker]++;
       /* Show Team Kill Selection Menu */
       ShowTeamKillSelectionMenu(victim);
     }
@@ -174,11 +173,15 @@ public int Handle_TeamKillSelectionMenu(Menu menu, MenuAction action, int client
   {
       char name[MAX_NAME_LENGTH];
       strcopy(name, sizeof(name), g_VictimsAttackerName[client]);
-      if(option == 0) { // forgive
-        PrintToChatAll("[TKM] %s has been forgiven for the team kill.", name);
+      if(option == 0) // forgive
+      {
+        PrintToChatAll("[TKM] %s has been forgiven for team killing.", name);
       } else if(option == 1) // punish
       {
         PrintToChatAll("[TKM] %s will be punished for team killing!", name);
+        /* Record Team kill */
+        int attacker = g_VictimsAttackerClient[client];
+        g_TeamKills[attacker]++;
         /* Show Team Kill Punishment Menu */
         ShowTeamKillPunishmentMenu(client);
       }
@@ -195,7 +198,7 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
       char name[MAX_NAME_LENGTH];
       strcopy(name, sizeof(name), g_VictimsAttackerName[client]);
       int attacker = g_VictimsAttackerClient[client];
-      char info[32];
+      char info[4];
       PunishType type;
       /* get punishment type */
       menu.GetItem(option, info, sizeof(info));
@@ -231,7 +234,6 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
           PrintToChatAll("[TKM] %s has been slayed!", name);
         }
       }
-
   } else if(action == MenuAction_End)
   {
     delete menu;
@@ -258,7 +260,7 @@ void ShowTeamKillPunishmentMenu(int client)
   strcopy(name, sizeof(name), g_VictimsAttackerName[client]);
   /* get attacker */
   int attacker = g_VictimsAttackerClient[client];
-  /* get total number of team damage for client */
+  /* get total number of team kills for attacker */
   int team_kills = g_TeamKills[attacker];
   /* Display menu */
   Menu menu = new Menu(Handle_TeamKillPunishmentMenu);
