@@ -198,7 +198,7 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
       char name[MAX_NAME_LENGTH];
       strcopy(name, sizeof(name), g_VictimsAttackerName[client]);
       int attacker = g_VictimsAttackerClient[client];
-      char info[4];
+      char info[3];
       PunishType type;
       /* get punishment type */
       menu.GetItem(option, info, sizeof(info));
