@@ -34,7 +34,7 @@ Minimum tks before a user can be punished with a slap.
 Health to Subtract when a user is punished by a slap.  
 
 `tkm_beacon_punishment_enabled`  
-(**Boolean**) *Default: 1, Min: 0, Max 1*  
+(**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether beacon is enabled in the punishments menu.  
 
@@ -42,6 +42,11 @@ Whether beacon is enabled in the punishments menu.
 (**Integer**) *Default: 1, Min: 1*  
 **Description:**  
 Minimum tks before a user can be punished with a beacon.  
+
+`tkm_beacon_strip_weapons`  
+(**Boolean**) *Default: 1, Min: 0, Max: 1*  
+**Description**  
+Strips attacker's weapons and prevents pickup while beacon is active  
 
 `tkm_beacon_time`  
 (**Integer**) *Default: 5, Min: 0*  
@@ -54,14 +59,19 @@ Time (in seconds) the beacon is active.
 Sets the radius for the beacons.  
 
 `tkm_freeze_punishment_enabled`  
-(**Boolean**) *Default: 1, Min: 0, Max 1*  
+(**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether freeze is enabled in the punishments menu.  
 
 `tkm_min_tks_for_freeze`  
 (**Integer**) *Default: 2, Min: 1*  
 **Description:**  
-Minimum tks before a user can be punished with freeze.  
+Minimum tks before a user can be punished with freeze.
+
+`tkm_freeze_strip_weapons`  
+(**Boolean**) *Default: 1, Min: 0, Max: 1*  
+**Description**  
+Strips attacker's weapons and prevents pickup while they are frozen.    
 
 `tkm_freeze_time`  
 (**Integer**) *Default: 5, Min: 0*  
@@ -69,7 +79,7 @@ Minimum tks before a user can be punished with freeze.
 Time (in seconds) the user is frozen for.  
 
 `tkm_burn_punishment_enabled`  
-(**Boolean**) *Default: 1, Min: 0, Max 1*  
+(**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether burn is enabled in the punishments menu.  
 
@@ -84,7 +94,7 @@ Minimum tks before a user can be punished with burn.
 Time (in seconds) the user is burned for.
 
 `tkm_slay_punishment_enabled`  
-(**Boolean**) *Default: 1, Min: 0, Max 1*  
+(**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether slay is enabled in the punishments menu.
 

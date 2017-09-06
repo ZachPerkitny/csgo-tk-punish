@@ -1,10 +1,12 @@
 #include <sourcemod>
 #include <sdktools>
+#include <sdkhooks>
+#include <cstrike>
 
 #define PLUGIN_NAME "CSGO Team Kill Manager"
 #define PLUGIN_AUTHOR "Zach Perkitny"
 #define PLUGIN_DESCRIPTION "Plugin that allows players to punish teamkillers."
-#define PLUGIN_VERSION "0.0.3"
+#define PLUGIN_VERSION "0.1.3"
 
 #define DEFAULT_TIMER_FLAGS TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE
 
@@ -31,11 +33,13 @@ ConVar g_SlapDamage;
 /* Beacon Convars */
 ConVar g_BeaconPunishmentEnabled;
 ConVar g_MinTksForBeacon;
+ConVar g_BeaconStripWeapons;
 ConVar g_BeaconTime;
 ConVar g_BeaconRadius;
 /* Freeze Convars */
 ConVar g_FreezePunishmentEnabled;
 ConVar g_MinTksForFreeze;
+ConVar g_FreezeStripWeapons;
 ConVar g_FreezeTime;
 /* Burn Convars */
 ConVar g_BurnPunishmentEnabled;
@@ -49,6 +53,7 @@ ConVar g_MinTksForSlay;
 int g_VictimsAttackerClient[MAXPLAYERS + 1];
 char g_VictimsAttackerName[MAXPLAYERS + 1][MAX_NAME_LENGTH];
 int g_TeamKills[MAXPLAYERS + 1];
+int g_DisablePickupTime[MAXPLAYERS + 1];
 int g_ClientFreezeTime[MAXPLAYERS + 1];
 int g_ClientBeaconTime[MAXPLAYERS + 1];
 
@@ -92,6 +97,9 @@ public void OnPluginStart()
   g_MinTksForBeacon = CreateConVar(
     "tkm_min_tks_for_beacon", "1", "Minimum tks before a user can be punished with a beacon.", FCVAR_NONE, true, 1.0
   );
+  g_BeaconStripWeapons = CreateConVar(
+    "tkm_beacon_strip_weapons", "1", "Strips attacker's weapons and prevents pickup while beacon is active.", FCVAR_NONE, true, 0.0, true, 1.0
+  );
   g_BeaconTime = CreateConVar(
     "tkm_beacon_time", "5", "Time (in seconds) the beaon is active.", FCVAR_NONE, true, 0.0
   );
@@ -104,6 +112,9 @@ public void OnPluginStart()
   );
   g_MinTksForFreeze = CreateConVar(
     "tkm_min_tks_for_freeze", "2", "Minimum tks before a user can be punished with freeze.", FCVAR_NONE, true, 1.0
+  );
+  g_FreezeStripWeapons = CreateConVar(
+    "tkm_freeze_strip_weapons", "1", "Strips attacker's weapons and prevents pickup while they are frozen.", FCVAR_NONE, true, 0.0, true, 1.0
   );
   g_FreezeTime = CreateConVar(
     "tkm_freeze_time", "5", "Time (in seconds) the user is frozen for.", FCVAR_NONE, true, 0.0
@@ -135,7 +146,9 @@ public void OnClientConnected(int client)
   g_VictimsAttackerClient[client] = -1;
   g_VictimsAttackerName[client] = "";
   g_TeamKills[client] = 0;
+  g_DisablePickupTime[client] = 0;
   g_ClientFreezeTime[client] = 0;
+  g_ClientBeaconTime[client] = 0;
 }
 
 /* cache models and sounds */
@@ -213,12 +226,20 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
         case PunishTypes_Beacon:
         {
           int time = g_BeaconTime.IntValue;
+          if(g_BeaconStripWeapons.BoolValue)
+          {
+            StripWeapons(attacker, time);
+          }
           CreateBeacon(attacker, time);
           PrintToChatAll("[TKM] %s has a beacon activated for %d seconds!", name, time);
         }
         case PunishTypes_Freeze:
         {
           int time = g_FreezeTime.IntValue;
+          if(g_FreezeStripWeapons.BoolValue)
+          {
+            StripWeapons(attacker, time);
+          }
           FreezePlayer(attacker, time);
           PrintToChatAll("[TKM] %s has been frozen for %d seconds!", name, time);
         }
@@ -292,6 +313,42 @@ void ShowTeamKillPunishmentMenu(int client)
   }
   menu.ExitButton = false;
   menu.Display(client, 20);
+}
+
+void StripWeapons(int client, int time)
+{
+  int i;
+  for(i = 0; i < 5; i++)
+  {
+    int weapon;
+    while((weapon = GetPlayerWeaponSlot(client, i)) != -1)
+    {
+      CS_DropWeapon(client, weapon, true);
+    }
+  }
+  g_DisablePickupTime[client] = time;
+  // hook entity
+  SDKHook(client, SDKHook_WeaponEquip, Event_OnWeaponEquip);
+  CreateTimer(1.0, Timer_Pickup, DEFAULT_TIMER_FLAGS);
+}
+
+// entity will be unhooked when timer expires, just block event.
+public Action Event_OnWeaponEquip(int client, int weapon)
+{
+  return Plugin_Handled;
+}
+
+public Action Timer_Pickup(Handle timer, any client)
+{
+  if(!IsClientInGame(client) ||
+    !IsPlayerAlive(client) ||
+    g_DisablePickupTime[client] == 0)
+  {
+    SDKUnhook(client, SDKHook_WeaponEquip, Event_OnWeaponEquip);
+    return Plugin_Stop;
+  }
+  g_DisablePickupTime[client]--;
+  return Plugin_Continue;
 }
 
 void CreateBeacon(int client, int time)
