@@ -209,10 +209,10 @@ public int Handle_TeamKillSelectionMenu(Menu menu, MenuAction action, int client
       strcopy(name, sizeof(name), g_VictimsAttackerName[client]);
       if(option == 0) // forgive
       {
-        PrintToChatAll("[TKM] %t", "Forgive", name);
+        PrintToChatAll("[TKP] %t", "Forgive", name);
       } else if(option == 1) // punish
       {
-        PrintToChatAll("[TKM] %t", "Punish", name);
+        PrintToChatAll("[TKP] %t", "Punish", name);
         /* Record Team kill */
         int attacker = g_VictimsAttackerClient[client];
         g_TeamKills[attacker]++;
@@ -242,7 +242,7 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
         {
           int damage = g_SlapDamage.IntValue;
           SlapPlayer(attacker, damage, true);
-          PrintToChatAll("[TKM] %t", "Punish_Slap", name, damage);
+          PrintToChatAll("[TKP] %t", "Punish_Slap", name, damage);
         }
         case PunishTypes_Beacon:
         {
@@ -252,7 +252,7 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
             StripWeapons(attacker, time);
           }
           CreateBeacon(attacker, time);
-          PrintToChatAll("[TKM] %t", "Punish_Beacon", name, time);
+          PrintToChatAll("[TKP] %t", "Punish_Beacon", name, time);
         }
         case PunishTypes_Freeze:
         {
@@ -262,13 +262,13 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
             StripWeapons(attacker, time);
           }
           FreezePlayer(attacker, time);
-          PrintToChatAll("[TKM] %t", "Punish_Freeze", name, time);
+          PrintToChatAll("[TKP] %t", "Punish_Freeze", name, time);
         }
         case PunishTypes_Burn:
         {
           float time = g_BurnTime.FloatValue;
           IgniteEntity(attacker, time);
-          PrintToChatAll("[TKM] %t", "Punish_Burn", name, g_BurnTime.IntValue);
+          PrintToChatAll("[TKP] %t", "Punish_Burn", name, g_BurnTime.IntValue);
         }
         case PunishTypes_Blind:
         {
@@ -278,12 +278,12 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
             StripWeapons(attacker, time);
           }
           BlindPlayer(attacker, time);
-          PrintToChatAll("[TKM] %t", "Punish_Blind", name, time);
+          PrintToChatAll("[TKP] %t", "Punish_Blind", name, time);
         }
         case PunishTypes_Slay:
         {
           ForcePlayerSuicide(attacker);
-          PrintToChatAll("[TKM] %t", "Punish_Slay", name);
+          PrintToChatAll("[TKP] %t", "Punish_Slay", name);
         }
       }
   } else if(action == MenuAction_End)
