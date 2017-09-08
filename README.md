@@ -1,8 +1,8 @@
-## CSGO-Team-Kill-Manager
+## CSGO-TK-Punish
 Community requested plugin to allow players who were team killed to get revenge on their attackers by being allowed to select from a list of punishments.
 
 ## Download
-Releases are located [here](https://github.com/ZachPerkitny/csgo-team-kill-manager/releases).
+Releases are located [here](https://github.com/ZachPerkitny/csgo-tk-punish/releases).
 
 ## Installation
 Download `teamkillmanager.smx` and place it in the plugins folder on your game server.
@@ -13,6 +13,7 @@ Download `teamkillmanager.smx` and place it in the plugins folder on your game s
 * Beacon (to disclose their location to the enemy)
 * Freeze
 * Ignite
+* Blind
 * Slay
 
 If you'd like me to add more, please make an issue and tag it as an enhancement.
