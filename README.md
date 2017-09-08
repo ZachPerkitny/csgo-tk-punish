@@ -91,7 +91,27 @@ Minimum tks before a user can be punished with burn.
 `tkm_burn_time`  
 (**Float**) *Default: 5.0, Min: 0.0*  
 **Description:**  
-Time (in seconds) the user is burned for.
+Time (in seconds) the user is burned for.  
+
+`tkm_blind_punishment_enabled`  
+(**Boolean**) *Default: 1, Min: 0, Max: 1*  
+**Description:**  
+Whether blind is enabled in the punishments menu.  
+
+`tkm_min_tks_for_blind`  
+(**Integer**) *Default: 2, Min: 1*  
+**Description:**  
+Minimum tks before a user can be punished with blind.  
+
+`tkm_blind_strip_weapons`  
+(**Boolean**) *Default: 1, Min: 0, Max: 1*  
+**Description**  
+Strips attacker's weapons and prevents pickup while they are blinded.     
+
+`tkm_blind_time`  
+(**Float**) *Default: 5.0, Min: 0.0*  
+**Description:**  
+Time (in seconds) the user is blinded for.    
 
 `tkm_slay_punishment_enabled`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  

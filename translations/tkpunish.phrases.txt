@@ -44,6 +44,10 @@
   {
       "en"        "Burn"
   }
+	"TK_Select_Punishment_Blind"
+	{
+			"en"				"Blind"
+	}
   "TK_Select_Punishment_Slay"
   {
       "en"        "Slay"
@@ -68,6 +72,11 @@
       "#format"   "{1:s},{2:d}"
       "en"        "{1} has been set on fire for {2} seconds!"
   }
+	"Punish_Blind"
+	{
+			"#format"		"{1:s},{2:d}"
+			"en"				"{1} has been blinded for {2} seconds!"
+	}
   "Punish_Slay"
   {
       "#format"   "{1:s}"

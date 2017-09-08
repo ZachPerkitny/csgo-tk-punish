@@ -21,6 +21,7 @@ enum PunishType {
   PunishTypes_Beacon,
   PunishTypes_Freeze,
   PunishTypes_Burn,
+  PunishTypes_Blind,
   PunishTypes_Slay
 };
 
@@ -45,6 +46,11 @@ ConVar g_FreezeTime;
 ConVar g_BurnPunishmentEnabled;
 ConVar g_MinTksForBurn;
 ConVar g_BurnTime;
+/* Blind Convars */
+ConVar g_BlindPunishmentEnabled;
+ConVar g_MinTksForBlind;
+ConVar g_BlindStripWeapons;
+ConVar g_BlindTime;
 /* Slay Convars */
 ConVar g_SlayPunishmentEnabled;
 ConVar g_MinTksForSlay;
@@ -130,6 +136,19 @@ public void OnPluginStart()
   );
   g_BurnTime = CreateConVar(
     "tkm_burn_time", "5", "Time (in seconds) the user is burned for.", FCVAR_NONE, true, 0.0
+  );
+  /* Blind Convars */
+  g_BlindPunishmentEnabled = CreateConVar(
+    "tkm_blind_punishment_enabled", "1", "Whether blind is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
+  );
+  g_MinTksForBlind = CreateConVar(
+    "tkm_min_tks_for_blind", "2", "Minimum tks before a user can be punished with blind.", FCVAR_NONE, true, 1.0
+  );
+  g_BlindStripWeapons = CreateConVar(
+    "tkm_blind_strip_weapons", "1", "Strips attacker's weapons and prevents pickup while they are blinded.", FCVAR_NONE, true, 0.0, true, 1.0
+  );
+  g_BlindTime = CreateConVar(
+    "tkm_blind_time", "5", "Time (in seconds) the user is blinded for.", FCVAR_NONE, true, 0.0
   );
   /* Slay Convars */
   g_SlayPunishmentEnabled = CreateConVar(
@@ -251,6 +270,16 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
           IgniteEntity(attacker, time);
           PrintToChatAll("[TKM] %t", "Punish_Burn", name, g_BurnTime.IntValue);
         }
+        case PunishTypes_Blind:
+        {
+          int time = g_BlindTime.IntValue;
+          if(g_BlindStripWeapons.BoolValue)
+          {
+            StripWeapons(attacker, time);
+          }
+          BlindPlayer(attacker, time);
+          PrintToChatAll("[TKM] %t", "Punish_Blind", name, time);
+        }
         case PunishTypes_Slay:
         {
           ForcePlayerSuicide(attacker);
@@ -319,11 +348,17 @@ void ShowTeamKillPunishmentMenu(int client)
     Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Punishment_Burn", client);
     menu.AddItem("3", menuItem);
   }
+  if(g_BlindPunishmentEnabled.BoolValue &&
+    team_kills >= g_MinTksForBlind.IntValue)
+  {
+    Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Punishment_Blind", client);
+    menu.AddItem("4", menuItem);
+  }
   if(g_SlayPunishmentEnabled.BoolValue &&
     team_kills >= g_MinTksForSlay.IntValue)
   {
     Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Punishment_Slay", client);
-    menu.AddItem("4", menuItem);
+    menu.AddItem("5", menuItem);
   }
   menu.ExitButton = false;
   menu.Display(client, 20);
@@ -430,4 +465,17 @@ public Action Timer_Freeze(Handle timer, any client)
   }
   g_ClientFreezeTime[client]--;
   return Plugin_Continue;
+}
+
+void BlindPlayer(int client, int time)
+{
+  int flags = 0x0001;
+  int color[4] = {0, 0, 0, 0};
+  Handle message = StartMessageOne("Fade", client);
+  Protobuf pb = UserMessageToProtobuf(message);
+  pb.SetInt("duration", time);
+  pb.SetInt("hold_time", time);
+  pb.SetInt("flags", flags);
+  pb.SetInt("clr", color);
+  EndMessage();
 }
