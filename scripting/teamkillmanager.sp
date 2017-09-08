@@ -78,6 +78,8 @@ public Plugin myinfo =
 
 public void OnPluginStart()
 {
+  /* Load Translations */
+  LoadTranslations("tkpunish.phrases");
   /* ConVars
   ----------------------------- */
   /* Slap ConVars */
@@ -188,10 +190,10 @@ public int Handle_TeamKillSelectionMenu(Menu menu, MenuAction action, int client
       strcopy(name, sizeof(name), g_VictimsAttackerName[client]);
       if(option == 0) // forgive
       {
-        PrintToChatAll("[TKM] %s has been forgiven for team killing.", name);
+        PrintToChatAll("[TKM] %t", "Forgive", name);
       } else if(option == 1) // punish
       {
-        PrintToChatAll("[TKM] %s will be punished for team killing!", name);
+        PrintToChatAll("[TKM] %t", "Punish", name);
         /* Record Team kill */
         int attacker = g_VictimsAttackerClient[client];
         g_TeamKills[attacker]++;
@@ -221,7 +223,7 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
         {
           int damage = g_SlapDamage.IntValue;
           SlapPlayer(attacker, damage, true);
-          PrintToChatAll("[TKM] %s has been slapped for %d damage!", name, damage);
+          PrintToChatAll("[TKM] %t", "Punish_Slap", name, damage);
         }
         case PunishTypes_Beacon:
         {
@@ -231,7 +233,7 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
             StripWeapons(attacker, time);
           }
           CreateBeacon(attacker, time);
-          PrintToChatAll("[TKM] %s has a beacon activated for %d seconds!", name, time);
+          PrintToChatAll("[TKM] %t", "Punish_Beacon", name, time);
         }
         case PunishTypes_Freeze:
         {
@@ -241,18 +243,18 @@ public int Handle_TeamKillPunishmentMenu(Menu menu, MenuAction action, int clien
             StripWeapons(attacker, time);
           }
           FreezePlayer(attacker, time);
-          PrintToChatAll("[TKM] %s has been frozen for %d seconds!", name, time);
+          PrintToChatAll("[TKM] %t", "Punish_Freeze", name, time);
         }
         case PunishTypes_Burn:
         {
           float time = g_BurnTime.FloatValue;
           IgniteEntity(attacker, time);
-          PrintToChatAll("[TKM] %s has been set on fire for %d seconds!", name, g_BurnTime.IntValue);
+          PrintToChatAll("[TKM] %t", "Punish_Burn", name, g_BurnTime.IntValue);
         }
         case PunishTypes_Slay:
         {
           ForcePlayerSuicide(attacker);
-          PrintToChatAll("[TKM] %s has been slayed!", name);
+          PrintToChatAll("[TKM] %t", "Punish_Slay", name);
         }
       }
   } else if(action == MenuAction_End)
@@ -265,11 +267,15 @@ void ShowTeamKillSelectionMenu(int client)
 {
   char name[MAX_NAME_LENGTH];
   strcopy(name, sizeof(name), g_VictimsAttackerName[client]);
+  char menuItem[128];
+  Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Fate_Title", client, name);
   /* Display Menu  */
   Menu menu = new Menu(Handle_TeamKillSelectionMenu);
-  menu.SetTitle("Decide %s's fate:", name);
-  menu.AddItem("forgive", "Forgive Them");
-  menu.AddItem("punish", "Punish Them");
+  menu.SetTitle(menuItem);
+  Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Fate_Forgive", client);
+  menu.AddItem("forgive", menuItem);
+  Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Fate_Punish", client);
+  menu.AddItem("punish", menuItem);
   menu.ExitButton = false;
   menu.Display(client, 20);
 }
@@ -279,37 +285,45 @@ void ShowTeamKillPunishmentMenu(int client)
   /* Get Attacker's Client Name */
   char name[MAX_NAME_LENGTH];
   strcopy(name, sizeof(name), g_VictimsAttackerName[client]);
+  /* Format Title of Menu */
+  char menuItem[128];
+  Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Punishment_Title", client, name);
   /* get attacker */
   int attacker = g_VictimsAttackerClient[client];
   /* get total number of team kills for attacker */
   int team_kills = g_TeamKills[attacker];
   /* Display menu */
   Menu menu = new Menu(Handle_TeamKillPunishmentMenu);
-  menu.SetTitle("Select a punishment for %s:", name);
+  menu.SetTitle(menuItem);
   if(g_SlapPunishmentEnabled.BoolValue &&
     team_kills >= g_MinTksForSlap.IntValue)
   {
-    menu.AddItem("0", "Slap");
+    Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Punishment_Slap", client);
+    menu.AddItem("0", menuItem);
   }
   if(g_BeaconPunishmentEnabled.BoolValue &&
     team_kills >= g_MinTksForBeacon.IntValue)
   {
-    menu.AddItem("1", "Beacon");
+    Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Punishment_Beacon", client);
+    menu.AddItem("1", menuItem);
   }
   if(g_FreezePunishmentEnabled.BoolValue &&
     team_kills >= g_MinTksForFreeze.IntValue)
   {
-    menu.AddItem("2", "Freeze");
+    Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Punishment_Freeze", client);
+    menu.AddItem("2", menuItem);
   }
   if(g_BurnPunishmentEnabled.BoolValue &&
     team_kills >= g_MinTksForBurn.IntValue)
   {
-    menu.AddItem("3", "Burn");
+    Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Punishment_Burn", client);
+    menu.AddItem("3", menuItem);
   }
   if(g_SlayPunishmentEnabled.BoolValue &&
     team_kills >= g_MinTksForSlay.IntValue)
   {
-    menu.AddItem("4", "Slay");
+    Format(menuItem, sizeof(menuItem), "%T", "TK_Select_Punishment_Slay", client);
+    menu.AddItem("4", menuItem);
   }
   menu.ExitButton = false;
   menu.Display(client, 20);
