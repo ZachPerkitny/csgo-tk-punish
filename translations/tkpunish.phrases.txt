@@ -1,85 +1,85 @@
 "Phrases"
 {
-		"Forgive"
-		{
-				"#format"   "{1:s}"
-				"en"        "{1} has been forgiven for team killing."
-		}
-		"Punish"
-		{
-				"#format"   "{1:s}"
-				"en"        "{1} will be punished for team killing!"
-		}
-		"TK_Select_Fate_Title"
-		{
-				"#format"   "{1:s}"
-				"en"        "Decide {1}'s fate:"
-		}
-		"TK_Select_Fate_Forgive"
-		{
-				"en"        "Forgive Them"
-		}
-		"TK_Select_Fate_Punish"
-		{
-				"en"        "Punish Them"
-		}
-		"TK_Select_Punishment_Title"
-		{
-				"#format"   "{1:s}"
-				"en"        "Select a punishment for {1}:"
-		}
-		"TK_Select_Punishment_Slap"
-		{
-				"en"        "Slap"
-		}
-		"TK_Select_Punishment_Beacon"
-		{
-				"en"        "Beacon"
-		}
-		"TK_Select_Punishment_Freeze"
-		{
-				"en"        "Freeze"
-		}
-		"TK_Select_Punishment_Burn"
-		{
-				"en"        "Burn"
-		}
-		"TK_Select_Punishment_Blind"
-		{
-				"en"				"Blind"
-		}
-		"TK_Select_Punishment_Slay"
-		{
-				"en"        "Slay"
-		}
-		"Punish_Slap"
-		{
-				"#format"   "{1:s},{2:d}"
-				"en"        "{1} has been slapped for {2} damage!"
-		}
-		"Punish_Beacon"
-		{
-				"#format"   "{1:s},{2:d}"
-				"en"        "{1} has a beacon activated for {2} seconds!"
-		}
-		"Punish_Freeze"
-		{
-				"#format"   "{1:s},{2:d}"
-				"en"        "{1} has been frozen for {2} seconds!"
-		}
-		"Punish_Burn"
-		{
-				"#format"   "{1:s},{2:d}"
-				"en"        "{1} has been set on fire for {2} seconds!"
-		}
-		"Punish_Blind"
-		{
-				"#format"		"{1:s},{2:d}"
-				"en"				"{1} has been blinded for {2} seconds!"
-		}
-		"Punish_Slay"
-		{
-				"#format"   "{1:s}"
-				"en"        "{1} has been slayed!"
-		}
+	"Forgive"
+	{
+		"#format"	"{1:s}"
+		"en"			"{1} has been forgiven for team killing."
+	}
+	"Punish"
+	{
+		"#format"	"{1:s}"
+		"en"			"{1} will be punished for team killing!"
+	}
+	"TK_Select_Fate_Title"
+	{
+		"#format"	"{1:s}"
+		"en"			"Decide {1}'s fate:"
+	}
+	"TK_Select_Fate_Forgive"
+	{
+		"en"			"Forgive Them"
+	}
+	"TK_Select_Fate_Punish"
+	{
+		"en"			"Punish Them"
+	}
+	"TK_Select_Punishment_Title"
+	{
+		"#format"	"{1:s}"
+		"en"			"Select a punishment for {1}:"
+	}
+	"TK_Select_Punishment_Slap"
+	{
+		"en"			"Slap"
+	}
+	"TK_Select_Punishment_Beacon"
+	{
+		"en"			"Beacon"
+	}
+	"TK_Select_Punishment_Freeze"
+	{
+		"en"			"Freeze"
+	}
+	"TK_Select_Punishment_Burn"
+	{
+		"en"			"Burn"
+	}
+	"TK_Select_Punishment_Blind"
+	{
+		"en"			"Blind"
+	}
+	"TK_Select_Punishment_Slay"
+	{
+		"en"			"Slay"
+	}
+	"Punish_Slap"
+	{
+		"#format"	"{1:s},{2:d}"
+		"en"			"{1} has been slapped for {2} damage!"
+	}
+	"Punish_Beacon"
+	{
+		"#format"	"{1:s},{2:d}"
+		"en"			"{1} has a beacon activated for {2} seconds!"
+	}
+	"Punish_Freeze"
+	{
+		"#format"	"{1:s},{2:d}"
+		"en"			"{1} has been frozen for {2} seconds!"
+	}
+	"Punish_Burn"
+	{
+		"#format"	"{1:s},{2:d}"
+		"en"			"{1} has been set on fire for {2} seconds!"
+	}
+	"Punish_Blind"
+	{
+		"#format"	"{1:s},{2:d}"
+		"en"			"{1} has been blinded for {2} seconds!"
+	}
+	"Punish_Slay"
+	{
+		"#format"	"{1:s}"
+		"en"			"{1} has been slayed!"
+	}
 }
