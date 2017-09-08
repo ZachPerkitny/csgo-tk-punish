@@ -3,7 +3,7 @@
 #include <sdkhooks>
 #include <cstrike>
 
-#define PLUGIN_NAME "CSGO Team Kill Manager"
+#define PLUGIN_NAME "CSGO TK Punish"
 #define PLUGIN_AUTHOR "Zach Perkitny"
 #define PLUGIN_DESCRIPTION "Plugin that allows players to punish teamkillers."
 #define PLUGIN_VERSION "0.1.3"
@@ -90,72 +90,72 @@ public void OnPluginStart()
   ----------------------------- */
   /* Slap ConVars */
   g_SlapPunishmentEnabled = CreateConVar(
-    "tkm_slap_punishment_enabled", "1", "Whether slap is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
+    "tkp_slap_punishment_enabled", "1", "Whether slap is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
   );
   g_MinTksForSlap = CreateConVar(
-    "tkm_min_tks_for_slap", "1", "Minimum tks before a user can be punished with a slap.", FCVAR_NONE, true, 1.0
+    "tkp_min_tks_for_slap", "1", "Minimum tks before a user can be punished with a slap.", FCVAR_NONE, true, 1.0
   );
   g_SlapDamage = CreateConVar(
-    "tkm_slap_damage", "15", "Health to Subtract when a user is punished by a slap.", FCVAR_NONE, true, 0.0
+    "tkp_slap_damage", "15", "Health to Subtract when a user is punished by a slap.", FCVAR_NONE, true, 0.0
   );
   /* Beacon Convars */
   g_BeaconPunishmentEnabled = CreateConVar(
-    "tkm_beacon_punishment_enabled", "1", "Whether beacon is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
+    "tkp_beacon_punishment_enabled", "1", "Whether beacon is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
   );
   g_MinTksForBeacon = CreateConVar(
-    "tkm_min_tks_for_beacon", "1", "Minimum tks before a user can be punished with a beacon.", FCVAR_NONE, true, 1.0
+    "tkp_min_tks_for_beacon", "1", "Minimum tks before a user can be punished with a beacon.", FCVAR_NONE, true, 1.0
   );
   g_BeaconStripWeapons = CreateConVar(
-    "tkm_beacon_strip_weapons", "1", "Strips attacker's weapons and prevents pickup while beacon is active.", FCVAR_NONE, true, 0.0, true, 1.0
+    "tkp_beacon_strip_weapons", "1", "Strips attacker's weapons and prevents pickup while beacon is active.", FCVAR_NONE, true, 0.0, true, 1.0
   );
   g_BeaconTime = CreateConVar(
-    "tkm_beacon_time", "5", "Time (in seconds) the beaon is active.", FCVAR_NONE, true, 0.0
+    "tkp_beacon_time", "5", "Time (in seconds) the beaon is active.", FCVAR_NONE, true, 0.0
   );
   g_BeaconRadius = CreateConVar(
-    "tkm_beacon_radius", "375", "Sets the radius for the beacons.", FCVAR_NONE, true, 50.0, true, 1500.0
+    "tkp_beacon_radius", "375", "Sets the radius for the beacons.", FCVAR_NONE, true, 50.0, true, 1500.0
   );
   /* Freeze Convars */
   g_FreezePunishmentEnabled = CreateConVar(
-    "tkm_freeze_punishment_enabled", "1", "Whether freeze is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
+    "tkp_freeze_punishment_enabled", "1", "Whether freeze is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
   );
   g_MinTksForFreeze = CreateConVar(
-    "tkm_min_tks_for_freeze", "2", "Minimum tks before a user can be punished with freeze.", FCVAR_NONE, true, 1.0
+    "tkp_min_tks_for_freeze", "2", "Minimum tks before a user can be punished with freeze.", FCVAR_NONE, true, 1.0
   );
   g_FreezeStripWeapons = CreateConVar(
-    "tkm_freeze_strip_weapons", "1", "Strips attacker's weapons and prevents pickup while they are frozen.", FCVAR_NONE, true, 0.0, true, 1.0
+    "tkp_freeze_strip_weapons", "1", "Strips attacker's weapons and prevents pickup while they are frozen.", FCVAR_NONE, true, 0.0, true, 1.0
   );
   g_FreezeTime = CreateConVar(
-    "tkm_freeze_time", "5", "Time (in seconds) the user is frozen for.", FCVAR_NONE, true, 0.0
+    "tkp_freeze_time", "5", "Time (in seconds) the user is frozen for.", FCVAR_NONE, true, 0.0
   );
   /* Burn Convars */
   g_BurnPunishmentEnabled = CreateConVar(
-    "tkm_burn_punishment_enabled", "1", "Whether burn is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
+    "tkp_burn_punishment_enabled", "1", "Whether burn is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
   );
   g_MinTksForBurn = CreateConVar(
-    "tkm_min_tks_for_burn", "2", "Minimum tks before a user can be punished with burn.", FCVAR_NONE, true, 1.0
+    "tkp_min_tks_for_burn", "2", "Minimum tks before a user can be punished with burn.", FCVAR_NONE, true, 1.0
   );
   g_BurnTime = CreateConVar(
-    "tkm_burn_time", "5", "Time (in seconds) the user is burned for.", FCVAR_NONE, true, 0.0
+    "tkp_burn_time", "5", "Time (in seconds) the user is burned for.", FCVAR_NONE, true, 0.0
   );
   /* Blind Convars */
   g_BlindPunishmentEnabled = CreateConVar(
-    "tkm_blind_punishment_enabled", "1", "Whether blind is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
+    "tkp_blind_punishment_enabled", "1", "Whether blind is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
   );
   g_MinTksForBlind = CreateConVar(
-    "tkm_min_tks_for_blind", "2", "Minimum tks before a user can be punished with blind.", FCVAR_NONE, true, 1.0
+    "tkp_min_tks_for_blind", "2", "Minimum tks before a user can be punished with blind.", FCVAR_NONE, true, 1.0
   );
   g_BlindStripWeapons = CreateConVar(
-    "tkm_blind_strip_weapons", "1", "Strips attacker's weapons and prevents pickup while they are blinded.", FCVAR_NONE, true, 0.0, true, 1.0
+    "tkp_blind_strip_weapons", "1", "Strips attacker's weapons and prevents pickup while they are blinded.", FCVAR_NONE, true, 0.0, true, 1.0
   );
   g_BlindTime = CreateConVar(
-    "tkm_blind_time", "5", "Time (in seconds) the user is blinded for.", FCVAR_NONE, true, 0.0
+    "tkp_blind_time", "5", "Time (in seconds) the user is blinded for.", FCVAR_NONE, true, 0.0
   );
   /* Slay Convars */
   g_SlayPunishmentEnabled = CreateConVar(
-    "tkm_slay_punishment_enabled", "1", "Whether slay is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
+    "tkp_slay_punishment_enabled", "1", "Whether slay is enabled in the punishments menu.", FCVAR_NOTIFY, true, 0.0, true, 1.0
   );
   g_MinTksForSlay = CreateConVar(
-    "tkm_min_tks_for_slay", "3", "Minimum tks before a user can be punished with slay.", FCVAR_NONE, true, 1.0
+    "tkp_min_tks_for_slay", "3", "Minimum tks before a user can be punished with slay.", FCVAR_NONE, true, 1.0
   );
   /* Events */
   HookEvent("player_death", Event_OnPlayerDeath);
@@ -476,6 +476,6 @@ void BlindPlayer(int client, int time)
   pb.SetInt("duration", time);
   pb.SetInt("hold_time", time);
   pb.SetInt("flags", flags);
-  pb.SetInt("clr", color);
+  pb.SetColor("clr", color);
   EndMessage();
 }

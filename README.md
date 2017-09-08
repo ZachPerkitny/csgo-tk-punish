@@ -19,107 +19,107 @@ Download `teamkillmanager.smx` and place it in the plugins folder on your game s
 If you'd like me to add more, please make an issue and tag it as an enhancement.
 
 ### Convars
-`tkm_slap_punishment_enabled`  
+`tkp_slap_punishment_enabled`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether slap is enabled in the punishments menu.
 
-`tkm_min_tks_for_slap`  
+`tkp_min_tks_for_slap`  
 (**Integer**) *Default: 1, Min: 1*  
 **Description:**  
 Minimum tks before a user can be punished with a slap.  
 
-`tkm_slap_damage`  
+`tkp_slap_damage`  
 (**Integer**) *Default: 15, Min: 0*  
 **Description:**  
 Health to Subtract when a user is punished by a slap.  
 
-`tkm_beacon_punishment_enabled`  
+`tkp_beacon_punishment_enabled`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether beacon is enabled in the punishments menu.  
 
-`tkm_min_tks_for_beacon`  
+`tkp_min_tks_for_beacon`  
 (**Integer**) *Default: 1, Min: 1*  
 **Description:**  
 Minimum tks before a user can be punished with a beacon.  
 
-`tkm_beacon_strip_weapons`  
+`tkp_beacon_strip_weapons`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description**  
 Strips attacker's weapons and prevents pickup while beacon is active  
 
-`tkm_beacon_time`  
+`tkp_beacon_time`  
 (**Integer**) *Default: 5, Min: 0*  
 **Description:**  
 Time (in seconds) the beacon is active.  
 
-`tkm_beacon_radius`  
+`tkp_beacon_radius`  
 (**Float**) *Default 375.0, Min: 50.0, Max: 1500.0*  
 **Description:**  
 Sets the radius for the beacons.  
 
-`tkm_freeze_punishment_enabled`  
+`tkp_freeze_punishment_enabled`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether freeze is enabled in the punishments menu.  
 
-`tkm_min_tks_for_freeze`  
+`tkp_min_tks_for_freeze`  
 (**Integer**) *Default: 2, Min: 1*  
 **Description:**  
 Minimum tks before a user can be punished with freeze.
 
-`tkm_freeze_strip_weapons`  
+`tkp_freeze_strip_weapons`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description**  
 Strips attacker's weapons and prevents pickup while they are frozen.    
 
-`tkm_freeze_time`  
+`tkp_freeze_time`  
 (**Integer**) *Default: 5, Min: 0*  
 **Description:**  
 Time (in seconds) the user is frozen for.  
 
-`tkm_burn_punishment_enabled`  
+`tkp_burn_punishment_enabled`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether burn is enabled in the punishments menu.  
 
-`tkm_min_tks_for_burn`  
+`tkp_min_tks_for_burn`  
 (**Integer**) *Default: 2, Min: 1*  
 **Description:**  
 Minimum tks before a user can be punished with burn.  
 
-`tkm_burn_time`  
+`tkp_burn_time`  
 (**Float**) *Default: 5.0, Min: 0.0*  
 **Description:**  
 Time (in seconds) the user is burned for.  
 
-`tkm_blind_punishment_enabled`  
+`tkp_blind_punishment_enabled`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether blind is enabled in the punishments menu.  
 
-`tkm_min_tks_for_blind`  
+`tkp_min_tks_for_blind`  
 (**Integer**) *Default: 2, Min: 1*  
 **Description:**  
 Minimum tks before a user can be punished with blind.  
 
-`tkm_blind_strip_weapons`  
+`tkp_blind_strip_weapons`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description**  
 Strips attacker's weapons and prevents pickup while they are blinded.     
 
-`tkm_blind_time`  
+`tkp_blind_time`  
 (**Float**) *Default: 5.0, Min: 0.0*  
 **Description:**  
 Time (in seconds) the user is blinded for.    
 
-`tkm_slay_punishment_enabled`  
+`tkp_slay_punishment_enabled`  
 (**Boolean**) *Default: 1, Min: 0, Max: 1*  
 **Description:**  
 Whether slay is enabled in the punishments menu.
 
-`tkm_min_tks_for_slay`  
+`tkp_min_tks_for_slay`  
 (**Integer**) *Default: 3, Min: 1*  
 **Description:**  
 Minimum tks before a user can be punished with slay.
